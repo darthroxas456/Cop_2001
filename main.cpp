@@ -1,3 +1,8 @@
+/*
+ * Authors name: Owen Rose
+ * This is a procedural project for COP 2001
+ * This is a program that, once finished, will be able to be used by corporates. 
+*/
 #include <iostream>
 #include <iomanip>
 //prototype
