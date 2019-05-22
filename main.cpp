@@ -1,3 +1,9 @@
+/*
+ * Authors name: Owen Rose
+ * This is a procedural project for COP 2001
+ * This is a program that, once finished, will be able to keep track of what products are produced
+ * for a media player production facility.
+*/
 #include <iostream>
 #include <iomanip>
 //prototype
@@ -42,19 +48,19 @@ int main() {
             //display the menu STUBS.
             switch(choice){
                 case PRODUCE_ITEMS:
-                    std::cout << "Produce Items Stub\n";
+                    std::cout << "Produce Items Stub\n"; //prints a stub for the selected item
                     break;
                 case ADD_EMPLOYEE_ACCOUNT:
-                    std::cout << "Add Employee Account Stub\n";
+                    std::cout << "Add Employee Account Stub\n"; //prints a stub for the selected item
                     break;
                 case ADD_MUSIC_PLAYER:
-                    std::cout << "Add Music Player Stub\n";
+                    std::cout << "Add Music Player Stub\n"; //prints a stub for the selected item
                     break;
                 case ADD_MOVIE_PLAYER:
-                    std::cout << "Add Movie Player Stub\n";
+                    std::cout << "Add Movie Player Stub\n"; //prints a stub for the selected item
                     break;
                 case DISPLAY_PRODUCTION_STATISTICS:
-                    std::cout << "Display Producion Statistics Stub\n";
+                    std::cout << "Display Production Statistics Stub\n"; //prints a stub for the selected item
                     break;
             }
         }
@@ -65,10 +71,10 @@ int main() {
     // For now, just have them input the information.
     cout << "Enter the Manufacturer\n";
     string manufacturer;
-    cin >> manufacturer;
+    cin >> manufacturer; // assigns what the user inputs to manufacturer.
     cout << "Enter the Product Name\n";
     string prodName;
-    cin >> prodName;
+    cin >> prodName; // assigns what the user inputs to prodName.
     cout << "Enter the item type\n";
     cout << "1. Audio\n" <<
          "2. Visual\n" <<
@@ -80,27 +86,27 @@ int main() {
     // write code to set the item type code based on the selected item type
     // Audio "MM", Visual "VI", AudioMobile "AM", or VisualMobile "VM".
     if(itemTypeChoice == 1){
-        itemTypeCode = "MM";
+        itemTypeCode = "MM"; // assigns MM to item code based on the users choice
 
     }else if(itemTypeChoice == 2){
-        itemTypeCode = "VI";
+        itemTypeCode = "VI"; // assigns MM to item code based on the users choice
 
     }else if(itemTypeChoice == 3){
-        itemTypeCode = "AM";
+        itemTypeCode = "AM"; // assigns MM to item code based on the users choice
 
     }else if(itemTypeChoice == 4){
-        itemTypeCode = "VM";
+        itemTypeCode = "VM"; // assigns MM to item code based on the users choice
     }
     cout << "Enter the number of items that were produced\n";
     int numProduced;
-    cin >> numProduced;
+    cin >> numProduced; // assigns what the user input to numProduced.
 
     // add a loop to record production, for now simply by
     // outputting production number and serial number
     int i;
     for(i=1; i <= numProduced; i++){
         cout << "Production Number: "<< i << " Serial Number: App" << itemTypeCode <<"0000"<< i << endl;
-    }
+    }    // prints out the production numbers and serial numbers for what the user asked for.
     return 0;
 }
 
@@ -109,7 +115,7 @@ int main() {
 //***********************************************************
 void showMenu(){
 
-    std::cout << "1. Produce Items\n";
+    std::cout << "1. Produce Items\n";     // these are the choices for the initial menu hte user sees.
     std::cout << "2. Add Employee Account\n";
     std::cout << "3. Add Music Player\n";
     std::cout << "4. Add Movie Player\n";
