@@ -1,14 +1,33 @@
-/*
- * Authors name: Owen Rose
- * This is a procedural project for COP 2001
- * This is a program that, once finished, will be able to keep track of what products are produced
+/** @file main.cpp
+ *  @brief This is a procedural project for COP 2001
+ *
+ *  This is a program that, once finished, will be able to keep track of what products are produced
  * for a media player production facility.
-*/
+ *
+ *  @author Owen Rose
+ *  @bug No known bugs.
+ */
+
 #include <iostream>
 #include <iomanip>
 #include <string>
 //prototype
 using namespace std;
+
+/** @brief This function prints out the menu screen.
+ *
+ *  The showMenu function creates the menu that the user will use to travel through
+ *  to create serial numbers for the media players made.
+ *
+ *  @param  "1. Produce Items";
+    @param  "2. Add Employee Account";
+    @param  "3. Add Music Player";
+    @param  "4. Add Movie Player";
+    @param  "5. Display Production Statistics";
+    @param  "6. Exit";
+ *
+ *  @return void
+ */
 void showMenu();
 
 int prodNum = 1;
@@ -21,21 +40,21 @@ int main() {
     int choice; //to hold the menu choice.
 
     //these are the constants for each of the choices.
-  const int PRODUCE_ITEMS =1,
-            ADD_EMPLOYEE_ACCOUNT =2,
-            ADD_MUSIC_PLAYER =3,
-            ADD_MOVIE_PLAYER =4,
-            DISPLAY_PRODUCTION_STATISTICS =5,
-            QUIT_CHOICE =6;
+    const int PRODUCE_ITEMS = 1,
+            ADD_EMPLOYEE_ACCOUNT = 2,
+            ADD_MUSIC_PLAYER = 3,
+            ADD_MOVIE_PLAYER = 4,
+            DISPLAY_PRODUCTION_STATISTICS = 5,
+            QUIT_CHOICE = 6;
 
     std::cout << "Production Line Tracker\n";
     std::cout << "\n";
-    do{
+    do {
         //Display the menu and get user's choice.
         showMenu();
         std::cin >> choice;
-        while(choice < PRODUCE_ITEMS || choice > QUIT_CHOICE){
-            std::cout << "Not a valid selection\n" ;
+        while (choice < PRODUCE_ITEMS || choice > QUIT_CHOICE) {
+            std::cout << "Not a valid selection\n";
             std::cout << "1. Produce Items\n";
             std::cout << "2. Add Employee Account\n";
             std::cout << "3. Add Music Player\n";
@@ -45,9 +64,9 @@ int main() {
             std::cin >> choice;
         }
         // If the user doesn't want to quit, proceed.
-        if(choice != QUIT_CHOICE){
+        if (choice != QUIT_CHOICE) {
             //display the menu STUBS.
-            switch(choice){
+            switch (choice) {
                 case PRODUCE_ITEMS:
                     std::cout << "Produce Items Stub\n"; //prints a stub for the selected item
                     break;
@@ -63,9 +82,12 @@ int main() {
                 case DISPLAY_PRODUCTION_STATISTICS:
                     std::cout << "Display Production Statistics Stub\n"; //prints a stub for the selected item
                     break;
+                default:
+                    std::cout << "Please select an item from the menu. " << std::endl;
+
             }
         }
-    }while(choice != QUIT_CHOICE);
+    } while (choice != QUIT_CHOICE);
 
 
     // Eventually the user will be able to choose the item to produce.
@@ -86,16 +108,16 @@ int main() {
     string itemTypeCode;
     // write code to set the item type code based on the selected item type
     // Audio "MM", Visual "VI", AudioMobile "AM", or VisualMobile "VM".
-    if(itemTypeChoice == 1){
+    if (itemTypeChoice == 1) {
         itemTypeCode = "MM"; // assigns MM to item code based on the users choice
 
-    }else if(itemTypeChoice == 2){
+    } else if (itemTypeChoice == 2) {
         itemTypeCode = "VI"; // assigns MM to item code based on the users choice
 
-    }else if(itemTypeChoice == 3){
+    } else if (itemTypeChoice == 3) {
         itemTypeCode = "AM"; // assigns MM to item code based on the users choice
 
-    }else if(itemTypeChoice == 4){
+    } else if (itemTypeChoice == 4) {
         itemTypeCode = "VM"; // assigns MM to item code based on the users choice
     }
     cout << "Enter the number of items that were produced\n";
@@ -105,8 +127,8 @@ int main() {
     // add a loop to record production, for now simply by
     // outputting production number and serial number
     int i;
-    for(i=1; i <= numProduced; i++){
-        cout << "Production Number: "<< i << " Serial Number: App" << itemTypeCode <<"0000"<< i << endl;
+    for (i = 1; i <= numProduced; i++) {
+        cout << "Production Number: " << i << " Serial Number: "<< manufacturer << itemTypeCode << "0000" << i << endl;
     }    // prints out the production numbers and serial numbers for what the user asked for.
     return 0;
 }
@@ -114,9 +136,9 @@ int main() {
 //***********************************************************
 //Definition of function showMenu which displays the menu. **
 //***********************************************************
-void showMenu(){
+void showMenu() {
 
-    std::cout << "1. Produce Items\n";     // these are the choices for the initial menu hte user sees.
+    std::cout << "1. Produce Items\n";     // these are the choices for the initial menu the user sees.
     std::cout << "2. Add Employee Account\n";
     std::cout << "3. Add Music Player\n";
     std::cout << "4. Add Movie Player\n";
