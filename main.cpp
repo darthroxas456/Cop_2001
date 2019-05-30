@@ -32,9 +32,39 @@ using namespace std;
  */
 void showMenu();
 
+/** @brief This function prints out a string of code.
+ *
+ *  the addToProductLine functions allows the user to input the manufacturer,
+ *  item name, and what type of product the item is and then prints out
+ *  in a single line what they inputted.
+ *
+ *  @param input of manufacturer
+ *  @param input of product name
+ *  @param input of product type.
+ *  @param output of the three listed above as a string.
+ *
+ *  @return void
+ */
 void addToProductLine(std::vector<std::string>&, std::vector<std::string>&,
                       std::vector<std::string>&);
 
+/** @brief This function prints out the sample information the user can input.
+ *
+ *  The add_sample_products function used vectors to create
+ *  a grid of data to print out sample data for the user.
+ *
+ *  @param product_line_manufacturers.push_back("Microsoft");
+ *  @param product_line_names.push_back("Zune");
+ *  @param product_line_item_types.push_back("AM");
+ *  @param product_line_manufacturers.push_back("Apple");
+ *  @param product_line_names.push_back("iPod");
+ *  @param product_line_item_types.push_back("AM");
+ *  @param product_line_manufacturers.push_back("Sylvania");
+ *  @param product_line_names.push_back("SDVD1187");
+ *  @param product_line_item_types.push_back("VM");
+ *
+ *  @return void
+ */
 void add_sample_products(std::vector<std::string> &, std::vector<std::string> &,
                          std::vector<std::string> &);
 
