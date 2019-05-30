@@ -11,6 +11,8 @@
 #include <iostream>
 #include <iomanip>
 #include <string>
+#include <vector>
+#include <algorithm>
 //prototype
 using namespace std;
 
@@ -29,6 +31,20 @@ using namespace std;
  *  @return void
  */
 void showMenu();
+
+void addToProductLine(std::vector<std::string>&, std::vector<std::string>&,
+                      std::vector<std::string>&);
+
+void add_sample_products(std::vector<std::string> &, std::vector<std::string> &,
+                         std::vector<std::string> &);
+
+void output_product_line(std::vector<std::string>, std::vector<std::string>,
+                         std::vector<std::string>);
+
+void output_sorted_product_names(std::vector<std::string>);
+
+void find_manufacturer_of_product(std::vector<std::string>, std::vector<std::string>);
+
 
 int prodNum = 1;
 int audioSerialNum = 1;
@@ -90,36 +106,92 @@ int main() {
     } while (choice != QUIT_CHOICE);
 
 
-    // Eventually the user will be able to choose the item to produce.
-    // For now, just have them input the information.
-    cout << "Enter the Manufacturer\n";
-    string manufacturer;
-    cin >> manufacturer; // assigns what the user inputs to manufacturer.
-    cout << "Enter the Product Name\n";
-    string prodName;
-    cin >> prodName; // assigns what the user inputs to prodName.
-    cout << "Enter the item type\n";
-    cout << "1. Audio\n" <<
-         "2. Visual\n" <<
-         "3. AudioMobile\n" <<
-         "4. VisualMobile\n";
-    int itemTypeChoice;
-    cin >> itemTypeChoice;
-    string itemTypeCode;
-    // write code to set the item type code based on the selected item type
-    // Audio "MM", Visual "VI", AudioMobile "AM", or VisualMobile "VM".
-    if (itemTypeChoice == 1) {
-        itemTypeCode = "MM"; // assigns MM to item code based on the users choice
+    // Create vectors
+    // vector to store product manufacturer
+    std::vector<std::string> productLineManufacturer;
+    // a parallel vector to store product name
+    std::vector<std::string> productLineName;
+    // a parallel vector to store product item type
+    // create vector here
+    std::vector<std::string> productLineItemType;
+    // Add three new products to the product line
 
-    } else if (itemTypeChoice == 2) {
-        itemTypeCode = "VI"; // assigns MM to item code based on the users choice
+    addToProductLine(productLineManufacturer, productLineName, productLineItemType);
+    addToProductLine(productLineManufacturer, productLineName, productLineItemType);
+    addToProductLine(productLineManufacturer, productLineName, productLineItemType);
 
-    } else if (itemTypeChoice == 3) {
-        itemTypeCode = "AM"; // assigns MM to item code based on the users choice
+    // Output the products in the product line
+    std::cout << "The products in the Product Line are:\n";
 
-    } else if (itemTypeChoice == 4) {
-        itemTypeCode = "VM"; // assigns MM to item code based on the users choice
+    for (int productLineItemNum=0; productLineItemNum < 3; productLineItemNum++) {
+        std::cout << productLineManufacturer[productLineItemNum] << ", ";
+        std::cout << productLineName[productLineItemNum] << ", ";
+        std::cout << productLineItemType[productLineItemNum] << "\n";
     }
+
+    // vectors for Product Line
+    // vector to store product manufacturer
+    std::vector<std::string> product_line_manufacturers;
+    // a parallel vector to store product name
+    std::vector<std::string> product_line_names;
+    // a parallel vector to store product item type
+    std::vector<std::string> product_line_item_types;
+
+    add_sample_products(product_line_manufacturers, product_line_names, product_line_item_types);
+    output_product_line(product_line_manufacturers, product_line_names, product_line_item_types);
+    output_sorted_product_names(product_line_names);
+    output_product_line(product_line_manufacturers, product_line_names, product_line_item_types);
+    return 0;
+}
+
+void addToProductLine(std::vector<std::string> &productLineManufacturer,
+                      std::vector<std::string> &productLineName, std::vector<std::string> &productLineItemType)
+{
+    std::cout << "Adding a new product to the product line\n";
+
+    std::cout << "Enter the Manufacturer\n";
+    std::string manufacturer;
+    getline(std::cin, manufacturer);
+    // add manufacturer to the vector here
+
+    productLineManufacturer.push_back(manufacturer);
+
+    std::cout << "Enter the Product Name\n";
+    std::string prodName;
+    getline(std::cin, prodName);
+    // add prodName to the vector
+    productLineName.push_back (prodName);
+
+    std::cout << "Enter the item type\n";
+    std::cout << "1. Audio\n" <<
+              "2. Visual\n" <<
+              "3. AudioMobile\n" <<
+              "4. VisualMobile\n";
+    int itemTypeChoice;
+    std::cin >> itemTypeChoice;
+    std::string itemTypeCode;
+    switch (itemTypeChoice) {
+        case 1:
+            itemTypeCode = "MM";
+            break;
+        case 2:
+            itemTypeCode = "VI";
+            break;
+        case 3:
+            itemTypeCode = "AM";
+            break;
+        case 4:
+            itemTypeCode = "VM";
+            break;
+        default:
+            std::cout << "Not a valid selection\n";
+            std::cout << "Setting type to 'NA'\n";
+            itemTypeCode = "NA";
+            break;
+    }
+    // add itemTypeCode to the vector
+    productLineItemType.push_back (itemTypeCode);
+    std::cin.ignore();
     cout << "Enter the number of items that were produced\n";
     int numProduced;
     cin >> numProduced; // assigns what the user input to numProduced.
@@ -130,7 +202,67 @@ int main() {
     for (i = 1; i <= numProduced; i++) {
         cout << "Production Number: " << i << " Serial Number: "<< manufacturer << itemTypeCode << "0000" << i << endl;
     }    // prints out the production numbers and serial numbers for what the user asked for.
-    return 0;
+
+}
+
+void add_sample_products(std::vector<std::string> &product_line_manufacturers,
+                         std::vector<std::string> &product_line_names, std::vector<std::string> &product_line_item_types) {
+    product_line_manufacturers.push_back("Microsoft");
+    product_line_names.push_back("Zune");
+    product_line_item_types.push_back("AM");
+    product_line_manufacturers.push_back("Apple");
+    product_line_names.push_back("iPod");
+    product_line_item_types.push_back("AM");
+    product_line_manufacturers.push_back("Sylvania");
+    product_line_names.push_back("SDVD1187");
+    product_line_item_types.push_back("VM");
+
+}
+
+void output_product_line(std::vector<std::string> product_line_manufacturers,
+                         std::vector<std::string> product_line_names, std::vector<std::string> product_line_item_types) {
+    for (int product_index = 0; product_index < 3; product_index++) {
+        std::cout << product_line_manufacturers[product_index] << ",";
+        std::cout << product_line_names[product_index] << ",";
+        std::cout << product_line_item_types[product_index] << "\n";
+    }
+}
+
+void output_sorted_product_names(std::vector<std::string> product_line_names) {
+    sort(product_line_names.begin(), product_line_names.end());
+
+    for (auto x : product_line_names) {
+        std::cout << x << std::endl;
+    }
+
+}
+
+void find_manufacturer_of_product(std::vector<std::string> product_line_manufacturers,
+                                  std::vector<std::string> product_line_names) {
+
+    std::cout << "Enter a product name to find the manufacturer\n";
+    std::string prod_name_to_find;
+    std::cin >> prod_name_to_find;
+
+    if (prod_name_to_find == "iPod") {
+        std::cout << "The manufacturer of that product is Apple" << std::endl;
+    } else if (prod_name_to_find == "ipod"){
+        std::cout << "The manufacturer of that product is Apple" << std::endl;
+    }else if(prod_name_to_find == "Zune") {
+        std::cout << "The manufacturer of that product is Microsoft" << std::endl;
+    }else if(prod_name_to_find == "zune") {
+        std::cout << "The manufacturer of that product is Microsoft" << std::endl;
+    }else if(prod_name_to_find == "SDVD1187") {
+        std::cout << "The manufacturer of that product is Sylvania" << std::endl;
+    }else if(prod_name_to_find == "sdvd1187") {
+        std::cout << "The manufacturer of that product is Sylvania" << std::endl;
+    }else{
+        std::cout << "That product name was not found." << std::endl;
+    }
+
+
+
+
 }
 
 //***********************************************************
