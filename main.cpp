@@ -14,6 +14,7 @@
 #include <vector>
 #include <algorithm>
 #include <sstream>
+#include <cstring>
 //prototype
 using namespace std;
 
@@ -71,6 +72,13 @@ void output_sorted_product_names(std::vector<std::string>);
 
 void find_manufacturer_of_product();
 
+void create_user();
+
+void create_password();
+
+string encrypt_string(string);
+
+string decrypt_string(string);
 
 int main() {
     int choice; //to hold the menu choice.
@@ -141,7 +149,9 @@ int main() {
                                    VI_num, VM_num);
                     break;
                 case ADD_EMPLOYEE_ACCOUNT:
-                    std::cout << "Add Employee Account Stub\n"; //prints a stub for the selected item
+                    //std::cout << "Add Employee Account Stub\n"; //prints a stub for the selected item
+                    create_user();
+                    create_password();
                     break;
                 case ADD_ITEM:
                     addToProductLine(manufacturers, names, item_types);
@@ -335,3 +345,90 @@ void find_manufacturer_of_product() {
     }
 }
 
+void create_user() {
+    std::cout << "Enter employee's full name\n";
+
+    std::string first_name;
+    std::cin >> first_name;
+    std::string last_name;
+    std::cin >> last_name;
+
+    std::string user_name;
+
+
+    std::transform(first_name.begin(), first_name.end(), first_name.begin(), ::tolower);
+
+    std::transform(last_name.begin(), last_name.end(), last_name.begin(), ::tolower);
+
+    user_name = first_name[0] + last_name;
+    std::cout << "User name: " + user_name + "\n \n";
+    cin.ignore();
+
+}
+
+void create_password() {
+    bool valid = false;
+
+    std::cout << "Enter employee's password.\n";
+    std::cout << "Must contain a number and lowercase and uppercase letters.\n";
+
+    const int SIZE = 30;
+    char password[SIZE];
+    int count = 0;
+
+    bool Capital_Found = false;
+    bool Lower_Found = false;
+    bool Number_Found = false;
+
+    std::cin.getline(password, SIZE);
+
+    // code to check if valid
+    for (count = 0; count < strlen(password); count++) {
+        if (isupper(password[count])) {
+            Capital_Found = true;
+        } else if (islower(password[count])) {
+            Lower_Found = true;
+        } else if (isdigit(password[count])) {
+            Number_Found = true;
+        } else {
+            valid = false;
+        }
+        //std::cout << "character looked at: " << password[count] << std::endl;
+    }
+    if (Capital_Found && Lower_Found && Number_Found) {
+        valid = true;
+    }
+    if (valid) {
+        std::cout << "valid \n \n";
+    } else {
+        std::cout << "invalid \n \n";
+    }
+
+    string encrypted_str = encrypt_string(password);
+    cout << "Encrypted string: " << encrypted_str << endl;
+    cout << "Decrypted string: " << decrypt_string(encrypted_str) << endl;
+}
+
+string encrypt_string(string str) {
+    if (str.length() == 1) {
+        return str;
+    } else {
+        return char((int) str[0] + 3) + encrypt_string(str.substr(1, str.length() - 1));
+    }
+}
+
+string decrypt_string(string str) {
+    if (str.length() == 1) {
+        return str;
+    } else {
+        return char((int) str[0] - 3) + decrypt_string(str.substr(1, str.length() - 1));
+        // get Ascii code of first letter by casting char to int
+
+        // shift the Ascii code by subtracting 3
+
+        // convert the new Ascii code to a character by casting int to char
+
+        // return the decrypted char + a recursive call to decrypt the next char
+
+    }
+}
