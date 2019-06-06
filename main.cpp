@@ -44,11 +44,22 @@ void addToProductLine(std::vector<std::string> &,
 
 /** @brief This function prints out a string of code.
  *
- *  the addToProductLine functions allows the user to input the manufacturer,
- *  item name, and what type of product the item is and then prints out
- *  in a single line what they inputted.
+ *  the production_log function allows the user to select one of the products made from the add item section
+ *  and tell the system how many of the item were made. The computer then outputs a serial number containing
+ *  the manufacturer,  the item type, and a 5 digit serial number for that type produced.
  *
- *  @param
+ *  @param std::vector<int> &production_number:
+    @param std::vector<std::string> &production_manufacturers:
+    @param std::vector<std::string> &production_names:
+    @param std::vector<std::string> &production_item_types:
+    @param std::vector<std::string> &production_serial_num:
+    @param std::vector<std::string> manufacturers:
+    @param std::vector<std::string> names:
+    @param std::vector<std::string> item_types:
+    @param int &MM_num:
+    @param int &AM_num:
+    @param int &VI_num:
+    @param int &VM_num:
  *
  *  @return void
  */
@@ -63,21 +74,80 @@ void production_log(std::vector<int> &production_number,
                     int &MM_num, int &AM_num,
                     int &VI_num, int &VM_num);
 
-
+/** @brief This function adds sample data for the user to use in multiple selections
+ *
+ *  The add_sample_products function adds 3 products from multiple manufacturers to be
+ *  used in the produce items section of the menu.
+ *
+ *  @param std::vector<std::string> &manufacturers:
+ *  @param std::vector<std::string> &names:
+ *  @param std::vector<std::string> &item_types:
+ *
+ *
+ *  @return void
+ */
 void add_sample_products(std::vector<std::string> &manufacturers,
                          std::vector<std::string> &names,
                          std::vector<std::string> &item_types);
 
+/** @brief This function prints out a string of code.
+ *
+ *  the output_sorted_product_names takes the products produced and arranges them in alphabetical order.
+ *
+ *  @param std::vector<std::string>
+ *
+ *  @return void
+ */
 void output_sorted_product_names(std::vector<std::string>);
 
+/** @brief This function prints out a string of code.
+ *
+ *  the find_manufacturer_of_product function asked for user input of a product and looks though
+ *  the vectors to fine the matching manufacturer and prints out that manufacturer.
+ *
+ *  @return void
+ */
 void find_manufacturer_of_product();
 
+/** @brief this function creates the user name for the user.
+ *
+ *  the the create_user function asks for the users first and last name and creates a user name consisting of the
+ *  first letter of the users name and the entire last name as one word and as lowercase letters.
+ *
+ *  @return void
+ */
 void create_user();
 
+/** @brief This function creates the password for the user.
+ *
+ *  the create_password function prints out a set of rules for creating a password that consists of at least 1
+ *  capital and lower case letter and a number. It then go through a for loop to check
+ *  that each character meets the requirements
+ *
+ *  @return void
+ */
 void create_password();
 
+/** @brief This function encrypts the password entered.
+ *
+ *  the encrypt_string function uses a type of cypher to shift all the characters of the password entered +3 characters
+ *  and prints out the encrypted password.
+ *
+ *  @param string: the password that was entered into create password.
+ *
+ *  @return void
+ */
 string encrypt_string(string);
 
+/** @brief This function decrypts the encrypted password
+ *
+ *  the decrypt_string function reverses the encryption of the encrypt_string function
+ *  and prints out the decrypted password
+ *
+ *  @param string: the encrypted password.
+ *
+ *  @return void
+ */
 string decrypt_string(string);
 
 int main() {
