@@ -15,8 +15,17 @@
 #include <algorithm>
 #include <sstream>
 #include <cstring>
-//prototype
+#include <fstream>
+
 using namespace std;
+
+struct Product {
+    string manufacturer;
+    string name;
+    string type;
+};
+//prototype
+
 
 /** @brief This function prints out the menu screen.
  *
@@ -86,9 +95,9 @@ void production_log(std::vector<int> &production_number,
  *
  *  @return void
  */
-void add_sample_products(std::vector<std::string> &manufacturers,
-                         std::vector<std::string> &names,
-                         std::vector<std::string> &item_types);
+void load_products(std::vector<std::string> &manufacturers,
+                   std::vector<std::string> &names,
+                   std::vector<std::string> &item_types);
 
 /** @brief This function prints out a string of code.
  *
@@ -150,6 +159,11 @@ string encrypt_string(string);
  */
 string decrypt_string(string);
 
+void add_product(vector<Product> &products);
+
+void print_product_line(const vector<Product> &);
+
+
 int main() {
     int choice; //to hold the menu choice.
 
@@ -176,6 +190,8 @@ int main() {
 
     std::vector<std::string> production_serial_num;
 
+    std::vector<Product> products;
+
     //these are the constants for each of the choices.
     const int PRODUCE_ITEMS = 1,
             ADD_EMPLOYEE_ACCOUNT = 2,
@@ -183,7 +199,7 @@ int main() {
             DISPLAY_PRODUCTION_STATISTICS = 4,
             QUIT_CHOICE = 5;
 
-    add_sample_products(manufacturers, names, item_types);
+    load_products(manufacturers, names, item_types);
 
     std::cout << "Production Line Tracker\n";
     std::cout << "\n";
@@ -206,7 +222,6 @@ int main() {
             //display the menu STUBS.
             switch (choice) {
                 case PRODUCE_ITEMS:
-                    //std::cout << "Produce Items Stub\n"; //prints a stub for the selected item
                     production_log(production_number,
                                    production_manufacturers,
                                    production_names,
@@ -219,15 +234,15 @@ int main() {
                                    VI_num, VM_num);
                     break;
                 case ADD_EMPLOYEE_ACCOUNT:
-                    //std::cout << "Add Employee Account Stub\n"; //prints a stub for the selected item
                     create_user();
                     create_password();
                     break;
                 case ADD_ITEM:
-                    addToProductLine(manufacturers, names, item_types);
+                    addToProductLine(manufacturers, names, item_types); // uses vectors
+                    //add_product(products); //uses struct
+                    //print_product_line(products); // uses struct
                     break;
                 case DISPLAY_PRODUCTION_STATISTICS:
-                    //std::cout << "Display Production Statistics Stub\n"; //prints a stub for the selected item
                     output_sorted_product_names(names);
                     find_manufacturer_of_product();
                     break;
@@ -307,6 +322,11 @@ void addToProductLine(std::vector<std::string> &productLineManufacturer,
 
     cout << manufacturer << ", " << prodName << ", " << itemTypeCode << endl << endl;
 
+    ofstream product_line_file;
+    product_line_file.open ("ProductLine.csv",  std::fstream::app);
+    product_line_file << manufacturer << ", " << prodName << ", " << itemTypeCode << endl;
+    product_line_file.close();
+
 }
 
 void production_log(std::vector<int> &production_number,
@@ -357,28 +377,50 @@ void production_log(std::vector<int> &production_number,
             VM_num++;
         }
         std::stringstream serial;
-        serial << production_manufacturers[choice - 1] + item_types[choice - 1] << setfill('0') << setw(5)
+        string Resize_manufacturer = manufacturers[choice - 1];
+        Resize_manufacturer.resize(3);
+
+        serial << Resize_manufacturer + item_types[choice - 1] << setfill('0') << setw(5)
                << serial_num;
         production_serial_num.push_back(serial.str());
 
         cout << serial.str() << endl;
+
+        ofstream product_line_file;
+        product_line_file.open ("ProductLog.csv",  std::fstream::app);
+        product_line_file << serial.str() <<  endl;
+        product_line_file.close();
+
     }
 
 
 }
 
-void add_sample_products(std::vector<std::string> &manufacturers,
-                         std::vector<std::string> &names,
-                         std::vector<std::string> &item_types) {
-    manufacturers.push_back("Microsoft");
-    names.push_back("Zune");
-    item_types.push_back("AM");
-    manufacturers.push_back("Apple");
-    names.push_back("iPod");
-    item_types.push_back("AM");
-    manufacturers.push_back("Sylvania");
-    names.push_back("SDVD1187");
-    item_types.push_back("VM");
+void load_products(std::vector<std::string> &manufacturers,
+                   std::vector<std::string> &names,
+                   std::vector<std::string> &item_types) {
+    string line;
+    ifstream load_product_file ("ProductLine.csv");
+    if (load_product_file.is_open())
+    {
+        while ( getline (load_product_file,line) )
+        {
+            stringstream ss (line);
+            std::string load_manufacturer;
+            std::string load_name;
+            std::string load_item_types;
+
+            std::getline(ss, load_manufacturer, ',');
+            std::getline(ss, load_name, ',');
+            std::getline(ss, load_item_types);
+            manufacturers.push_back(load_manufacturer);
+            names.push_back(load_name);
+            item_types.push_back(load_item_types);
+        }
+        load_product_file.close();
+    }
+
+    else cout << "Unable to open file";
 
 }
 
@@ -434,6 +476,10 @@ void create_user() {
     std::cout << "User name: " + user_name + "\n \n";
     cin.ignore();
 
+    ofstream User_file;
+    User_file.open ("Users.txt",  std::fstream::app);
+    User_file << user_name << ", ";
+    User_file.close();
 }
 
 void create_password() {
@@ -449,6 +495,7 @@ void create_password() {
     bool Capital_Found = false;
     bool Lower_Found = false;
     bool Number_Found = false;
+    bool Space_Found = false;
 
     std::cin.getline(password, SIZE);
 
@@ -460,23 +507,35 @@ void create_password() {
             Lower_Found = true;
         } else if (isdigit(password[count])) {
             Number_Found = true;
-        } else {
+        }else if (isspace(password[count])) {
+            Space_Found = true;
+        }else{
             valid = false;
         }
+        }
         //std::cout << "character looked at: " << password[count] << std::endl;
-    }
+
     if (Capital_Found && Lower_Found && Number_Found) {
         valid = true;
+    }
+    if (Capital_Found && Lower_Found && Number_Found && Space_Found) {
+        // this will change valid to false if a space was found
+        valid = false;
     }
     if (valid) {
         std::cout << "valid \n \n";
     } else {
-        std::cout << "invalid \n \n";
+        std::cout << "invalid \n Try again \n \n";
     }
 
     string encrypted_str = encrypt_string(password);
-    cout << "Encrypted string: " << encrypted_str << endl;
-    cout << "Decrypted string: " << decrypt_string(encrypted_str) << endl;
+    //cout << "Encrypted password: " << encrypted_str << endl;
+    //cout << "Decrypted password: " << decrypt_string(encrypted_str) << endl;
+
+    ofstream User_file;
+    User_file.open ("Users.txt",  std::fstream::app);
+    User_file << encrypted_str <<  endl;
+    User_file.close();
 }
 
 string encrypt_string(string str) {
@@ -492,13 +551,55 @@ string decrypt_string(string str) {
         return str;
     } else {
         return char((int) str[0] - 3) + decrypt_string(str.substr(1, str.length() - 1));
-        // get Ascii code of first letter by casting char to int
 
-        // shift the Ascii code by subtracting 3
+    }
+}
 
-        // convert the new Ascii code to a character by casting int to char
 
-        // return the decrypted char + a recursive call to decrypt the next char
+void add_product(vector<Product> &products) {
+    cout << "Enter manufacturer: ";
+    string input_manufacturer;
+    cin >> input_manufacturer;
+    cout << "Enter product name: ";
+    string input_name;
+    cin >> input_name;
+    std::cout << "Enter the item type\n";
+    std::cout << "1. Audio\n" <<
+              "2. Visual\n" <<
+              "3. AudioMobile\n" <<
+              "4. VisualMobile\n";
+    int itemTypeChoice;
+    cin >> itemTypeChoice;
+    string itemTypeCode;
+    switch (itemTypeChoice) {
+        case 1:
+            itemTypeCode = "MM";
+            break;
+        case 2:
+            itemTypeCode = "VI";
+            break;
+        case 3:
+            itemTypeCode = "AM";
+            break;
+        case 4:
+            itemTypeCode = "VM";
+            break;
+        default:
+            cout << "Not a valid selection\n";
+            cout << "Setting type to 'NA'\n";
+            itemTypeCode = "NA";
+            break;
+    }
+    Product Items;
+    Items.manufacturer = input_manufacturer;
+    Items.name = input_name;
+    Items.type = itemTypeCode;
+    // store to vector
+    products.push_back(Items);
+}
 
+void print_product_line(const vector<Product> &products) {
+    for (int i = 0; i < products.size(); i++) {
+        cout << products[i].manufacturer << " " << products[i].name << " " << products[i].type << endl;
     }
 }
