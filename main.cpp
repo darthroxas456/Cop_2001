@@ -5,7 +5,8 @@
  * for a media player production facility.
  *
  *  @author Owen Rose
- *  @bug No known bugs.
+ *  @bug you have to first add items (selection 3) in order to
+ *  produce items the first time the program is run on your computer.
  */
 
 #include <iostream>
@@ -57,18 +58,18 @@ void addToProductLine(std::vector<std::string> &,
  *  and tell the system how many of the item were made. The computer then outputs a serial number containing
  *  the manufacturer,  the item type, and a 5 digit serial number for that type produced.
  *
- *  @param std::vector<int> &production_number:
-    @param std::vector<std::string> &production_manufacturers:
-    @param std::vector<std::string> &production_names:
-    @param std::vector<std::string> &production_item_types:
-    @param std::vector<std::string> &production_serial_num:
-    @param std::vector<std::string> manufacturers:
-    @param std::vector<std::string> names:
-    @param std::vector<std::string> item_types:
-    @param int &MM_num:
-    @param int &AM_num:
-    @param int &VI_num:
-    @param int &VM_num:
+ *  @param std::vector<int> &production_number: this keeps track of the items produced
+    @param std::vector<std::string> &production_manufacturers: this keeps track of the manufacturer when an item is produced
+    @param std::vector<std::string> &production_names: this keeps track of the name of the item when it is produced
+    @param std::vector<std::string> &production_item_types: this keeps track of the item type (AM) when the item is produced
+    @param std::vector<std::string> &production_serial_num: this creates a incrementing number for every item created
+    @param std::vector<std::string> manufacturers: saves all the manufacturers to a vector
+    @param std::vector<std::string> names: saves all the names to a vector
+    @param std::vector<std::string> item_types:saves all the item types to a vector
+    @param int &MM_num: an incrememnting number for the serial number
+    @param int &AM_num: an incrememnting number for the serial number
+    @param int &VI_num: an incrememnting number for the serial number
+    @param int &VM_num: an incrememnting number for the serial number
  *
  *  @return void
  */
@@ -88,9 +89,9 @@ void production_log(std::vector<int> &production_number,
  *  The add_sample_products function adds 3 products from multiple manufacturers to be
  *  used in the produce items section of the menu.
  *
- *  @param std::vector<std::string> &manufacturers:
- *  @param std::vector<std::string> &names:
- *  @param std::vector<std::string> &item_types:
+ *  @param std::vector<std::string> &manufacturers: gives the address for the manufacturers vector
+ *  @param std::vector<std::string> &names: gives the address for the names vector
+ *  @param std::vector<std::string> &item_types: gives the address for the item_types vector
  *
  *
  *  @return void
@@ -103,7 +104,7 @@ void load_products(std::vector<std::string> &manufacturers,
  *
  *  the output_sorted_product_names takes the products produced and arranges them in alphabetical order.
  *
- *  @param std::vector<std::string>
+ *  @param std::vector<std::string> names: used to acsess the names vector to put them in order.
  *
  *  @return void
  */
@@ -159,8 +160,29 @@ string encrypt_string(string);
  */
 string decrypt_string(string);
 
+/** @brief This function adds products to the struct Product
+ *
+ *  the add_product function allows the user to input the manufacturer,
+ *  item name, and what type of product the item is and then prints out
+ *  in a single line what they inputted.
+ *
+ *  @param vector<Product> &products: this is a vector using the struct
+ *  Product to do the same thing as the Production_log when asking
+ *  for the manufacturer name and item_type.
+ *
+ *  @return void
+ */
 void add_product(vector<Product> &products);
 
+/** @brief This function prints out the data inputted by the add_product function
+ *
+ *  the print_product_line function reads the struct Product
+ *  and the vector products to output the items added.
+ *
+ *  @param const vector<Product> &: prints out what was inputted for the add_product function.
+ *
+ *  @return void
+ */
 void print_product_line(const vector<Product> &);
 
 
@@ -381,11 +403,12 @@ void production_log(std::vector<int> &production_number,
         Resize_manufacturer.resize(3);
 
         serial << Resize_manufacturer + item_types[choice - 1] << setfill('0') << setw(5)
-               << serial_num;
+               << serial_num; //serial_num is initialized when the production_log function is run.
         production_serial_num.push_back(serial.str());
 
         cout << serial.str() << endl;
 
+        //the following code below writes the serial.str() to a file called ProductLog.csv
         ofstream product_line_file;
         product_line_file.open ("ProductLog.csv",  std::fstream::app);
         product_line_file << serial.str() <<  endl;
@@ -396,6 +419,7 @@ void production_log(std::vector<int> &production_number,
 
 }
 
+//the following code below reads the file called ProductLog.csv and loads it into memory to be used
 void load_products(std::vector<std::string> &manufacturers,
                    std::vector<std::string> &names,
                    std::vector<std::string> &item_types) {
@@ -532,6 +556,7 @@ void create_password() {
     //cout << "Encrypted password: " << encrypted_str << endl;
     //cout << "Decrypted password: " << decrypt_string(encrypted_str) << endl;
 
+    //the following code below writes encrypted_str to a file called Users.txt
     ofstream User_file;
     User_file.open ("Users.txt",  std::fstream::app);
     User_file << encrypted_str <<  endl;
@@ -594,7 +619,7 @@ void add_product(vector<Product> &products) {
     Items.manufacturer = input_manufacturer;
     Items.name = input_name;
     Items.type = itemTypeCode;
-    // store to vector
+    
     products.push_back(Items);
 }
 
