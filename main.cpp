@@ -7,6 +7,7 @@
  *  @author Owen Rose
  *  @bug you have to first add items (selection 3) in order to
  *  produce items the first time the program is run on your computer.
+ *  @bug The serial number restarts at 0 when the program is run again.
  */
 
 #include <iostream>
