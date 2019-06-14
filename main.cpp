@@ -27,7 +27,6 @@ struct Product {
 };
 //prototype
 
-
 /** @brief This function prints out the menu screen.
  *
  *  The showMenu function creates the menu that the user will use to travel through
@@ -40,11 +39,13 @@ void showMenu();
 
 /** @brief This function prints out a string of code.
  *
- *  the addToProductLine functions allows the user to input the manufacturer,
+ *  The addToProductLine functions allows the user to input the manufacturer,
  *  item name, and what type of product the item is and then prints out
  *  in a single line what they inputted.
  *
- *  @param productLineManufacturer: this vector contains
+ *  @param productLineManufacturer: this vector contains the manufacturers of the product
+ *  @param productLineName: this vector contains the name of the product
+ *  @param productLineItemType: this vector contains the item type of the product.
  *
  *  @return void
  */
@@ -54,7 +55,7 @@ void addToProductLine(std::vector<std::string> &,
 
 /** @brief This function prints out a string of code.
  *
- *  the production_log function allows the user to select one of the products made from the add item section
+ *  The production_log function allows the user to select one of the products made from the add item section
  *  and tell the system how many of the item were made. The computer then outputs a serial number containing
  *  the manufacturer,  the item type, and a 5 digit serial number for that type produced.
  *
@@ -66,10 +67,10 @@ void addToProductLine(std::vector<std::string> &,
     @param std::vector<std::string> manufacturers: saves all the manufacturers to a vector
     @param std::vector<std::string> names: saves all the names to a vector
     @param std::vector<std::string> item_types:saves all the item types to a vector
-    @param int &MM_num: an incrememnting number for the serial number
-    @param int &AM_num: an incrememnting number for the serial number
-    @param int &VI_num: an incrememnting number for the serial number
-    @param int &VM_num: an incrememnting number for the serial number
+    @param int &MM_num: an incrementing number for the serial number
+    @param int &AM_num: an incrementing number for the serial number
+    @param int &VI_num: an incrementing number for the serial number
+    @param int &VM_num: an incrementing number for the serial number
  *
  *  @return void
  */
@@ -102,7 +103,7 @@ void load_products(std::vector<std::string> &manufacturers,
 
 /** @brief This function prints out a string of code.
  *
- *  the output_sorted_product_names takes the products produced and arranges them in alphabetical order.
+ *  The output_sorted_product_names takes the products produced and arranges them in alphabetical order.
  *
  *  @param std::vector<std::string> names: used to acsess the names vector to put them in order.
  *
@@ -112,7 +113,7 @@ void output_sorted_product_names(std::vector<std::string>);
 
 /** @brief This function prints out a string of code.
  *
- *  the find_manufacturer_of_product function asked for user input of a product and looks though
+ *  The find_manufacturer_of_product function asked for user input of a product and looks though
  *  the vectors to fine the matching manufacturer and prints out that manufacturer.
  *
  *  @return void
@@ -121,7 +122,7 @@ void find_manufacturer_of_product();
 
 /** @brief this function creates the user name for the user.
  *
- *  the the create_user function asks for the users first and last name and creates a user name consisting of the
+ *  The create_user function asks for the users first and last name and creates a user name consisting of the
  *  first letter of the users name and the entire last name as one word and as lowercase letters.
  *
  *  @return void
@@ -130,7 +131,7 @@ void create_user();
 
 /** @brief This function creates the password for the user.
  *
- *  the create_password function prints out a set of rules for creating a password that consists of at least 1
+ *  The create_password function prints out a set of rules for creating a password that consists of at least 1
  *  capital and lower case letter and a number. It then go through a for loop to check
  *  that each character meets the requirements
  *
@@ -140,7 +141,7 @@ void create_password();
 
 /** @brief This function encrypts the password entered.
  *
- *  the encrypt_string function uses a type of cypher to shift all the characters of the password entered +3 characters
+ *  The encrypt_string function uses a type of cypher to shift all the characters of the password entered +3 characters
  *  and prints out the encrypted password.
  *
  *  @param string: the password that was entered into create password.
@@ -151,7 +152,7 @@ string encrypt_string(string);
 
 /** @brief This function decrypts the encrypted password
  *
- *  the decrypt_string function reverses the encryption of the encrypt_string function
+ *  The decrypt_string function reverses the encryption of the encrypt_string function
  *  and prints out the decrypted password
  *
  *  @param string: the encrypted password.
@@ -162,7 +163,7 @@ string decrypt_string(string);
 
 /** @brief This function adds products to the struct Product
  *
- *  the add_product function allows the user to input the manufacturer,
+ *  The add_product function allows the user to input the manufacturer,
  *  item name, and what type of product the item is and then prints out
  *  in a single line what they inputted.
  *
@@ -176,7 +177,7 @@ void add_product(vector<Product> &products);
 
 /** @brief This function prints out the data inputted by the add_product function
  *
- *  the print_product_line function reads the struct Product
+ *  The print_product_line function reads the struct Product
  *  and the vector products to output the items added.
  *
  *  @param const vector<Product> &: prints out what was inputted for the add_product function.
@@ -223,7 +224,7 @@ int main() {
 
     load_products(manufacturers, names, item_types);
 
-    std::cout << "Production Line Tracker\n";
+    std::cout << "Production Line Tracker\n"; //Title
     std::cout << "\n";
 
     do {
@@ -296,17 +297,15 @@ void addToProductLine(std::vector<std::string> &productLineManufacturer,
     std::cout << "Enter the Manufacturer\n";
     std::string manufacturer;
     getline(std::cin, manufacturer);
-    // add manufacturer to the vector here
+    // adds manufacturer to the vector here
 
     productLineManufacturer.push_back(manufacturer);
-
 
     std::cout << "Enter the Product Name\n";
     std::string prodName;
     getline(std::cin, prodName);
     // add prodName to the vector
     productLineName.push_back(prodName);
-
 
     std::cout << "Enter the item type\n";
     std::cout <<
@@ -345,10 +344,9 @@ void addToProductLine(std::vector<std::string> &productLineManufacturer,
     cout << manufacturer << ", " << prodName << ", " << itemTypeCode << endl << endl;
 
     ofstream product_line_file;
-    product_line_file.open ("ProductLine.csv",  std::fstream::app);
+    product_line_file.open("ProductLine.csv", std::fstream::app);
     product_line_file << manufacturer << ", " << prodName << ", " << itemTypeCode << endl;
     product_line_file.close();
-
 }
 
 void production_log(std::vector<int> &production_number,
@@ -384,7 +382,7 @@ void production_log(std::vector<int> &production_number,
 
         production_item_types.push_back(item_types[choice - 1]);
 
-        int serial_num;
+        int serial_num; // serial_num will be assigned the number associated with the selected item_type.
         if (item_types[choice - 1] == "AM") {
             serial_num = AM_num;
             AM_num++;
@@ -410,8 +408,8 @@ void production_log(std::vector<int> &production_number,
 
         //the following code below writes the serial.str() to a file called ProductLog.csv
         ofstream product_line_file;
-        product_line_file.open ("ProductLog.csv",  std::fstream::app);
-        product_line_file << serial.str() <<  endl;
+        product_line_file.open("ProductLog.csv", std::fstream::app);
+        product_line_file << serial.str() << endl;
         product_line_file.close();
 
     }
@@ -424,14 +422,12 @@ void load_products(std::vector<std::string> &manufacturers,
                    std::vector<std::string> &names,
                    std::vector<std::string> &item_types) {
     string line;
-    ifstream load_product_file ("ProductLine.csv");
-    if (load_product_file.is_open())
-    {
-        while ( getline (load_product_file,line) )
-        {
-            stringstream ss (line);
-            std::string load_manufacturer;
-            std::string load_name;
+    ifstream load_product_file("ProductLine.csv");
+    if (load_product_file.is_open()) {
+        while (getline(load_product_file, line)) {
+            stringstream ss(line);
+            std::string load_manufacturer;                    //This program opens the ProductLine.csv file to
+            std::string load_name;                            //gather all the items made in earlier selections.
             std::string load_item_types;
 
             std::getline(ss, load_manufacturer, ',');
@@ -442,22 +438,20 @@ void load_products(std::vector<std::string> &manufacturers,
             item_types.push_back(load_item_types);
         }
         load_product_file.close();
-    }
-
-    else cout << "Unable to open file";
+    } else cout << "Unable to open file";
 
 }
 
 void output_sorted_product_names(std::vector<std::string> names) {
     sort(names.begin(), names.end());
-
+                                        //This program sorts the product names in alphabetical order.
     for (auto x : names) {
         std::cout << x << std::endl;
     }
 
 }
 
-void find_manufacturer_of_product() {
+void find_manufacturer_of_product() { // as the name says this program uses input of a product to find the manufacturer
 
     std::cout << "Enter the product name from the list above "
                  "to find the manufacturer\n";
@@ -491,7 +485,6 @@ void create_user() {
 
     std::string user_name;
 
-
     std::transform(first_name.begin(), first_name.end(), first_name.begin(), ::tolower);
 
     std::transform(last_name.begin(), last_name.end(), last_name.begin(), ::tolower);
@@ -501,7 +494,7 @@ void create_user() {
     cin.ignore();
 
     ofstream User_file;
-    User_file.open ("Users.txt",  std::fstream::app);
+    User_file.open("Users.txt", std::fstream::app);
     User_file << user_name << ", ";
     User_file.close();
 }
@@ -531,13 +524,13 @@ void create_password() {
             Lower_Found = true;
         } else if (isdigit(password[count])) {
             Number_Found = true;
-        }else if (isspace(password[count])) {
+        } else if (isspace(password[count])) {
             Space_Found = true;
-        }else{
+        } else {
             valid = false;
         }
-        }
-        //std::cout << "character looked at: " << password[count] << std::endl;
+    }
+    //std::cout << "character looked at: " << password[count] << std::endl;
 
     if (Capital_Found && Lower_Found && Number_Found) {
         valid = true;
@@ -558,8 +551,8 @@ void create_password() {
 
     //the following code below writes encrypted_str to a file called Users.txt
     ofstream User_file;
-    User_file.open ("Users.txt",  std::fstream::app);
-    User_file << encrypted_str <<  endl;
+    User_file.open("Users.txt", std::fstream::app);
+    User_file << encrypted_str << endl;
     User_file.close();
 }
 
@@ -619,7 +612,7 @@ void add_product(vector<Product> &products) {
     Items.manufacturer = input_manufacturer;
     Items.name = input_name;
     Items.type = itemTypeCode;
-    
+
     products.push_back(Items);
 }
 
