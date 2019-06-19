@@ -7,6 +7,8 @@
  *  @author Owen Rose
  *  @bug you have to first add items (selection 3) in order to
  *  produce items the first time the program is run on your computer.
+ *  Otherwise the program will crash because it doesn't not have the data it needs.
+ *
  *  @bug The serial number restarts at 0 when the program is run again.
  */
 
@@ -84,7 +86,8 @@ void production_log(std::vector<int> &production_number,
                     std::vector<std::string> names,
                     std::vector<std::string> item_types,
                     int &MM_num, int &AM_num,
-                    int &VI_num, int &VM_num);
+                    int &VI_num, int &VM_num,
+                    int &production_num);
 
 /** @brief This function adds sample data for the user to use in multiple selections
  *
@@ -187,6 +190,18 @@ void add_product(vector<Product> &products);
  */
 void print_product_line(const vector<Product> &);
 
+/** @brief This function loads the production log from a file.
+ *
+ *  The load_production_log function opens the ProductionLog.csv file
+ *  and reads all the lines that are in there to get the production_num
+ *  and to get the serial_num based on the substring of the serial number
+ *  written to the file.
+ *
+ * @param &MM_num
+ */
+void load_product_log(int &MM_num, int &AM_num,
+                      int &VI_num, int &VM_num,
+                      int &production_num);
 
 int main() {
     int choice; //to hold the menu choice.
@@ -195,6 +210,7 @@ int main() {
     int MM_num = 0;
     int VI_num = 0;
     int VM_num = 0;
+    int production_num = 0;
     // vectors for Product Line
     // vector to store product manufacturer
     std::vector<std::string> manufacturers;
@@ -224,6 +240,7 @@ int main() {
             QUIT_CHOICE = 5;
 
     load_products(manufacturers, names, item_types);
+    load_product_log(MM_num, AM_num, VI_num, VM_num, production_num);
 
     std::cout << "Production Line Tracker\n"; //Title
     std::cout << "\n";
@@ -255,7 +272,8 @@ int main() {
                                    names,
                                    item_types,
                                    MM_num, AM_num,
-                                   VI_num, VM_num);
+                                   VI_num, VM_num,
+                                   production_num);
                     break;
                 case ADD_EMPLOYEE_ACCOUNT:
                     create_user();
@@ -342,11 +360,11 @@ void addToProductLine(std::vector<std::string> &productLineManufacturer,
     productLineItemType.push_back(itemTypeCode);
     std::cin.ignore();
 
-    cout << manufacturer << ", " << prodName << ", " << itemTypeCode << endl << endl;
+    cout << manufacturer << "," << prodName << "," << itemTypeCode << endl << endl;
 
     ofstream product_line_file;
     product_line_file.open("ProductLine.csv", std::fstream::app);
-    product_line_file << manufacturer << ", " << prodName << ", " << itemTypeCode << endl;
+    product_line_file << manufacturer << "," << prodName << "," << itemTypeCode << endl;
     product_line_file.close();
 }
 
@@ -359,7 +377,8 @@ void production_log(std::vector<int> &production_number,
                     std::vector<std::string> names,
                     std::vector<std::string> item_types,
                     int &MM_num, int &AM_num,
-                    int &VI_num, int &VM_num) {
+                    int &VI_num, int &VM_num,
+                    int &production_num) {
 
     int prodLine_num;
     cout << "Select one of the following:" << endl;
@@ -396,6 +415,8 @@ void production_log(std::vector<int> &production_number,
         } else if (item_types[choice - 1] == "VM") {
             serial_num = VM_num;
             VM_num++;
+        } else {
+            cout << "unexpected item type. \n";
         }
         std::stringstream serial;
         string Resize_manufacturer = manufacturers[choice - 1];
@@ -405,12 +426,12 @@ void production_log(std::vector<int> &production_number,
                << serial_num; //serial_num is initialized when the production_log function is run.
         production_serial_num.push_back(serial.str());
 
-        cout << serial.str() << endl;
+        cout << serial.str()<< ", " << (production_num++ +1)<< endl;
 
         //the following code below writes the serial.str() to a file called ProductLog.csv
         ofstream product_line_file;
         product_line_file.open("ProductLog.csv", std::fstream::app);
-        product_line_file << serial.str() << endl;
+        product_line_file << serial.str() << "," << production_num << endl;
         product_line_file.close();
 
     }
@@ -437,15 +458,49 @@ void load_products(std::vector<std::string> &manufacturers,
             manufacturers.push_back(load_manufacturer);
             names.push_back(load_name);
             item_types.push_back(load_item_types);
+            //cout << "pushing item_type. \n" << load_item_types <<endl;
         }
         load_product_file.close();
-    } else cout << "Unable to open file";
+    } else cout << "No products to load\n \n";
 
+}
+
+void load_product_log(int &MM_num, int &AM_num,
+                      int &VI_num, int &VM_num,
+                      int &production_num) {
+    string line;
+    ifstream load_product_log("ProductLog.csv");
+    if (load_product_log.is_open()) {
+        while (getline(load_product_log, line)) {
+
+            std::string load_item_types = line.substr(3, 2);
+            //cout << "load_item_types = " << load_item_types << endl;
+            production_num++;
+            //cout << "production_num = " << production_num << endl;
+            if (load_item_types == "AM") {
+                AM_num++;
+
+            } else if (load_item_types == "VI") {
+                VI_num++;
+
+            } else if (load_item_types == "MM") {
+                MM_num++;
+
+            } else if (load_item_types == "VM") {
+                VM_num++;
+
+            } else {
+                cout << "could not find serial numbers \n";
+            }
+
+        }
+        load_product_log.close();
+    } else cout << "No products to load\n \n";
 }
 
 void output_sorted_product_names(std::vector<std::string> names) {
     sort(names.begin(), names.end());
-                                        //This program sorts the product names in alphabetical order.
+    //This program sorts the product names in alphabetical order.
     for (auto x : names) {
         std::cout << x << std::endl;
     }
