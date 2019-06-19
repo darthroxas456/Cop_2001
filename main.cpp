@@ -114,7 +114,7 @@ void load_products(std::vector<std::string> &manufacturers,
  *
  *  @return void
  */
-void output_sorted_product_names(std::vector<std::string>&);
+void output_sorted_product_names(std::vector<std::string> &);
 
 /** @brief This function prints out a string of code.
  *
@@ -427,7 +427,7 @@ void production_log(std::vector<int> &production_number,
                << serial_num; //serial_num is initialized when the production_log function is run.
         production_serial_num.push_back(serial.str());
 
-        cout << serial.str()<< ", " << (production_num++ +1)<< endl;
+        cout << serial.str() << ", " << (production_num++ + 1) << endl;
 
         //the following code below writes the serial.str() to a file called ProductLog.csv
         ofstream product_line_file;
