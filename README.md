@@ -26,7 +26,7 @@ If you so like you can edit the program to fit your production needs. I would re
 Owen Rose
 
 ## License
-
+GNU GPLv3
 
 ## Acknowledgments
 Web sites used: Cave of Programming, Prof. Vanselow personal website, CPlusPlus.
