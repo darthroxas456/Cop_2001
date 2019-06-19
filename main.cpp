@@ -23,11 +23,12 @@
 
 using namespace std;
 
-struct Product {
+/* struct Product {
     string manufacturer;
     string name;
     string type;
 };
+*/
 //prototype
 
 /** @brief This function prints out the menu screen.
@@ -113,7 +114,7 @@ void load_products(std::vector<std::string> &manufacturers,
  *
  *  @return void
  */
-void output_sorted_product_names(std::vector<std::string>);
+void output_sorted_product_names(std::vector<std::string>&);
 
 /** @brief This function prints out a string of code.
  *
@@ -177,7 +178,7 @@ string decrypt_string(string);
  *
  *  @return void
  */
-void add_product(vector<Product> &products);
+//void add_product(vector<Product> &products);
 
 /** @brief This function prints out the data inputted by the add_product function
  *
@@ -188,7 +189,7 @@ void add_product(vector<Product> &products);
  *
  *  @return void
  */
-void print_product_line(const vector<Product> &);
+//void print_product_line(const vector<Product> &);
 
 /** @brief This function loads the production log from a file.
  *
@@ -230,7 +231,7 @@ int main() {
 
     std::vector<std::string> production_serial_num;
 
-    std::vector<Product> products;
+    //std::vector<Product> products;
 
     //these are the constants for each of the choices.
     const int PRODUCE_ITEMS = 1,
@@ -402,7 +403,7 @@ void production_log(std::vector<int> &production_number,
 
         production_item_types.push_back(item_types[choice - 1]);
 
-        int serial_num; // serial_num will be assigned the number associated with the selected item_type.
+        unsigned int serial_num; // serial_num will be assigned the number associated with the selected item_type.
         if (item_types[choice - 1] == "AM") {
             serial_num = AM_num;
             AM_num++;
@@ -498,10 +499,10 @@ void load_product_log(int &MM_num, int &AM_num,
     } else cout << "No products to load\n \n";
 }
 
-void output_sorted_product_names(std::vector<std::string> names) {
+void output_sorted_product_names(std::vector<std::string> &names) {
     sort(names.begin(), names.end());
     //This program sorts the product names in alphabetical order.
-    for (auto x : names) {
+    for (auto const x : names) {
         std::cout << x << std::endl;
     }
 
@@ -629,7 +630,7 @@ string decrypt_string(string str) {
     }
 }
 
-
+/*
 void add_product(vector<Product> &products) {
     cout << "Enter manufacturer: ";
     string input_manufacturer;
@@ -677,3 +678,4 @@ void print_product_line(const vector<Product> &products) {
         cout << products[i].manufacturer << " " << products[i].name << " " << products[i].type << endl;
     }
 }
+*/
