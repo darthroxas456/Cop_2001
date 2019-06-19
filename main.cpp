@@ -323,10 +323,10 @@ void add_to_product_line(std::vector<std::string> &product_line_manufacturer,
     product_line_manufacturer.push_back(manufacturer);
 
     std::cout << "Enter the Product Name\n";
-    std::string prodName;
-    getline(std::cin, prodName);
-    // add prodName to the vector
-    product_line_name.push_back(prodName);
+    std::string prod_name;
+    getline(std::cin, prod_name);
+    // add prod_name to the vector
+    product_line_name.push_back(prod_name);
 
     std::cout << "Enter the item type\n";
     std::cout <<
@@ -338,35 +338,35 @@ void add_to_product_line(std::vector<std::string> &product_line_manufacturer,
     int itemTypeChoice;
 
     std::cin >> itemTypeChoice;
-    std::string itemTypeCode;
+    std::string item_type_code;
     switch (itemTypeChoice) {
         case 1:
-            itemTypeCode = "MM";
+            item_type_code = "MM";
             break;
         case 2:
-            itemTypeCode = "VI";
+            item_type_code = "VI";
             break;
         case 3:
-            itemTypeCode = "AM";
+            item_type_code = "AM";
             break;
         case 4:
-            itemTypeCode = "VM";
+            item_type_code = "VM";
             break;
         default:
             std::cout << "Not a valid selection\n";
             std::cout << "Setting type to 'NA'\n";
-            itemTypeCode = "NA";
+            item_type_code = "NA";
             break;
     }
-    // add itemTypeCode to the vector
-    product_line_Item_type.push_back(itemTypeCode);
+    // add item_type_code to the vector
+    product_line_Item_type.push_back(item_type_code);
     std::cin.ignore();
 
-    cout << manufacturer << "," << prodName << "," << itemTypeCode << endl << endl;
+    cout << manufacturer << "," << prod_name << "," << item_type_code << endl << endl;
 
     ofstream product_line_file;
     product_line_file.open("ProductLine.csv", std::fstream::app);
-    product_line_file << manufacturer << "," << prodName << "," << itemTypeCode << endl;
+    product_line_file << manufacturer << "," << prod_name << "," << item_type_code << endl;
     product_line_file.close();
 }
 
