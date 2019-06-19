@@ -39,7 +39,7 @@ using namespace std;
  *
  *  @return void
  */
-void showMenu();
+void show_menu();
 
 /** @brief This function prints out a string of code.
  *
@@ -53,9 +53,9 @@ void showMenu();
  *
  *  @return void
  */
-void addToProductLine(std::vector<std::string> &,
-                      std::vector<std::string> &,
-                      std::vector<std::string> &);
+void add_to_product_line(std::vector<std::string> &,
+                         std::vector<std::string> &,
+                         std::vector<std::string> &);
 
 /** @brief This function prints out a string of code.
  *
@@ -248,7 +248,7 @@ int main() {
 
     do {
         //Display the menu and get user's choice.
-        showMenu();
+        show_menu();
         std::cin >> choice;
         while (choice < PRODUCE_ITEMS || choice > QUIT_CHOICE) {
             std::cout << "Not a valid selection\n";
@@ -281,7 +281,7 @@ int main() {
                     create_password();
                     break;
                 case ADD_ITEM:
-                    addToProductLine(manufacturers, names, item_types); // uses vectors
+                    add_to_product_line(manufacturers, names, item_types); // uses vectors
                     //add_product(products); //uses struct
                     //print_product_line(products); // uses struct
                     break;
@@ -299,9 +299,9 @@ int main() {
 }
 
 //***********************************************************
-//Definition of function showMenu which displays the menu. **
+//Definition of function show_menu which displays the menu. **
 //***********************************************************
-void showMenu() {
+void show_menu() {
     std::cout << "\nProduction Line Tracker\n";
     std::cout << "1. Produce Items\n";     // these are the choices for the initial menu the user sees.
     std::cout << "2. Add Employee Account\n";
@@ -310,8 +310,9 @@ void showMenu() {
     std::cout << "5. Exit\n";
 }
 
-void addToProductLine(std::vector<std::string> &productLineManufacturer,
-                      std::vector<std::string> &productLineName, std::vector<std::string> &productLineItemType) {
+void add_to_product_line(std::vector<std::string> &product_line_manufacturer,
+                         std::vector<std::string> &product_line_name,
+                         std::vector<std::string> &product_line_Item_type) {
     std::cout << "Adding a new product to the product line\n";
     std::cin.ignore();
     std::cout << "Enter the Manufacturer\n";
@@ -319,13 +320,13 @@ void addToProductLine(std::vector<std::string> &productLineManufacturer,
     getline(std::cin, manufacturer);
     // adds manufacturer to the vector here
 
-    productLineManufacturer.push_back(manufacturer);
+    product_line_manufacturer.push_back(manufacturer);
 
     std::cout << "Enter the Product Name\n";
     std::string prodName;
     getline(std::cin, prodName);
     // add prodName to the vector
-    productLineName.push_back(prodName);
+    product_line_name.push_back(prodName);
 
     std::cout << "Enter the item type\n";
     std::cout <<
@@ -358,7 +359,7 @@ void addToProductLine(std::vector<std::string> &productLineManufacturer,
             break;
     }
     // add itemTypeCode to the vector
-    productLineItemType.push_back(itemTypeCode);
+    product_line_Item_type.push_back(itemTypeCode);
     std::cin.ignore();
 
     cout << manufacturer << "," << prodName << "," << itemTypeCode << endl << endl;
@@ -381,12 +382,12 @@ void production_log(std::vector<int> &production_number,
                     int &VI_num, int &VM_num,
                     int &production_num) {
 
-    int prodLine_num;
+    int production_line_num;
     cout << "Select one of the following:" << endl;
-    for (prodLine_num = 0; prodLine_num < manufacturers.size();
-         prodLine_num++) {
-        cout << prodLine_num + 1 << ". " << manufacturers[prodLine_num]
-             << ", " << names[prodLine_num] << endl;
+    for (production_line_num = 0; production_line_num < manufacturers.size();
+         production_line_num++) {
+        cout << production_line_num + 1 << ". " << manufacturers[production_line_num]
+             << ", " << names[production_line_num] << endl;
     }
     int choice;
     cin >> choice;
@@ -395,7 +396,7 @@ void production_log(std::vector<int> &production_number,
     cout << "Amount Made:" << endl;
     cin >> amount_made;
     for (int i = 0; i < amount_made; i++) {
-        production_number.push_back(prodLine_num + 1);
+        production_number.push_back(production_line_num + 1);
 
         production_manufacturers.push_back(manufacturers[choice - 1]);
 
