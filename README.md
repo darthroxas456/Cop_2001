@@ -15,14 +15,10 @@ If the productionLog.csv and ProductLine.csv files aren't downloaded, don't worr
 the program will write them itself when you call those specific functions.
 
 ## Built With
-IDE used: Clion
-Other software used:
-Visual Studio 2017
-MinGW
+IDE used: Clion <br/>
+Other software used: Visual Studio 2017, MinGW <br/>
                     
-Resources used: 
-Cave of Programming
-Swebok v3
+Resources used: Cave of Programming, Swebok v3
 
 ## Contributing
 If you so like you can edit the program to fit your production needs. I would reccomend editting the way the serial number is printed out if you want to see more of the manufacturer's name when printing.
@@ -34,7 +30,7 @@ Owen Rose
 GNU GPLv3
 
 ## Acknowledgments
-Web sites used: Cave of Programming, Prof. Vanselow personal website, CPlusPlus.
+Web sites used: Cave of Programming, Prof. Vanselow personal website, CPlusPlus. <br/>
 Professor: Professor Vanselow
 
 ## History
