@@ -178,6 +178,7 @@ string decrypt_string(string);
  *
  *  @return void
  */
+ // THIS FUNCTIONS USES STRUCT, BUT I PERSONALLY PREFER TO USE VECTORS.
 //void add_product(vector<Product> &products);
 
 /** @brief This function prints out the data inputted by the add_product function
@@ -189,6 +190,7 @@ string decrypt_string(string);
  *
  *  @return void
  */
+// THIS FUNCTIONS USES STRUCT, BUT I PERSONALLY PREFER TO USE VECTORS.
 //void print_product_line(const vector<Product> &);
 
 /** @brief This function loads the production log from a file.
@@ -206,6 +208,13 @@ void load_product_log(int &MM_num, int &AM_num,
 
 int main() {
     int choice; //to hold the menu choice.
+
+    ofstream product_line_file;
+    product_line_file.open("ProductLine.csv", std::fstream::app);
+    product_line_file << "Apple" << "," << "iPod" << "," << "AM" << endl;
+    product_line_file << "Apple" << "," << "iPad" << "," << "VM" << endl;
+    product_line_file << "Apple" << "," << "Mac" << "," << "VI" << endl;
+    product_line_file.close();
 
     int AM_num = 0;
     int MM_num = 0;
