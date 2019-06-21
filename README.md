@@ -1,22 +1,22 @@
 # Procedural Project
- for this project I was "hired" to create software for a media player production facility that will keep track of what products are produced. This project was written independently by me the author. I wrote this project during a six week course of Programming Methodology in my junior year of college. At the time I had no prior knowledge of C++ and as you read through the project, you will see my knowledge and understanding of C++ grow considerably.
+For this project I was "hired" to create software for a media player production facility that will keep track of what products are produced. This project was written independently by me the author. I wrote this project during a six week course of Programming Methodology in my junior year of college. At the time I had no prior knowledge of C++ and as you read through the project, you will see my knowledge and understanding of C++ grow considerably.
 
 ## Demonstration
 ![procedural project gif](Procedural_project.gif)
 
 
 ## Documentation
-made comments for here
+Made comments for here
 (skip till friday)
 
 ## Getting Started
-download all the files and run it on a C++ IDE.
+Download all the files and run it on a C++ IDE.
 If the productionLog.csv and ProductLine.csv files aren't downloaded, don't worry,
 the program will write them itself when you call those specific functions.
 
 ## Built With
-IDE used: Clion
-Other software used: visual studio 2017, MinGW
+IDE used: Clion <br/>
+Other software used: Visual Studio 2017, MinGW                 
 Resources used: Cave of Programming, Swebok v3
 
 ## Contributing
@@ -29,7 +29,7 @@ Owen Rose
 GNU GPLv3
 
 ## Acknowledgments
-Web sites used: Cave of Programming, Prof. Vanselow personal website, CPlusPlus.
+Web sites used: Cave of Programming, Prof. Vanselow personal website, CPlusPlus. <br/>
 Professor: Professor Vanselow
 
 ## History
