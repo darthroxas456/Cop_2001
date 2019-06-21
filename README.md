@@ -6,9 +6,8 @@ For this project I was "hired" to create software for a media player production 
 
 
 ## Documentation
-This is the doxygen html file of my comments for the project: <br/>
-![Procedural Project comments](file:///C:/Users/owenr/OneDrive%20-%20Florida%20Gulf%20Coast%20University/Clion/Clion%20Projects/cmake-build-debug/CMakeFiles/Clion_Projects.dir/docs/html/main_8cpp.html)
-
+This is the doxygen html file of my comments for the project:(copy and paste into your browser) <br/>
+file:///C:/Users/owenr/OneDrive%20-%20Florida%20Gulf%20Coast%20University/Clion/Clion%20Projects/cmake-build-debug/CMakeFiles/Clion_Projects.dir/docs/html/main_8cpp.html
 ## Getting Started
 Download all the files and run it on a C++ IDE.
 If the productionLog.csv and ProductLine.csv files aren't downloaded, don't worry,
