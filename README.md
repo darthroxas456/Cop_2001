@@ -16,8 +16,13 @@ the program will write them itself when you call those specific functions.
 
 ## Built With
 IDE used: Clion
-Other software used: Visual Studio 2017, MinGW
-Resources used: Cave of Programming, Swebok v3
+Other software used:
+Visual Studio 2017
+MinGW
+                    
+Resources used: 
+Cave of Programming
+Swebok v3
 
 ## Contributing
 If you so like you can edit the program to fit your production needs. I would reccomend editting the way the serial number is printed out if you want to see more of the manufacturer's name when printing.
