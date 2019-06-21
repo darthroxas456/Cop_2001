@@ -16,8 +16,7 @@ the program will write them itself when you call those specific functions.
 
 ## Built With
 IDE used: Clion <br/>
-Other software used: Visual Studio 2017, MinGW <br/>
-                    
+Other software used: Visual Studio 2017, MinGW <br/>                  
 Resources used: Cave of Programming, Swebok v3
 
 ## Contributing
